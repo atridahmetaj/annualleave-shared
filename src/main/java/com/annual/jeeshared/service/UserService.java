@@ -1,7 +1,6 @@
 package com.annual.jeeshared.service;
 
 import com.annual.jeeshared.entity.User;
-import com.annual.jeeshared.enums.Role;
 import com.annual.jeeshared.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
