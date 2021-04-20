@@ -1,6 +1,9 @@
 package com.annual.jeeshared.service;
 
 import com.annual.jeeshared.constants.Constants;
+import com.annual.jeeshared.entity.Application;
+import com.annual.jeeshared.entity.User;
+import com.annual.jeeshared.utils.UserUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,20 @@ public class EmailService {
         logger.debug(String.format(Constants.SENDING_EMAIL,to));
         sendEmail(to, subject, message);
         logger.debug(String.format(Constants.EMAIL_SENT,to));
+    }
+
+    public void sendApplicationMail(Application application, String message){
+        // send email
+        User requester = application.getRequestedBy();
+        User loggedInUser = UserUtils.getLoggedInUser();
+        String[] sendTo = new String[2];
+        sendTo[0] = requester.getEmail();
+        if (loggedInUser.equals(requester.getAdmin()))
+            sendTo[1] = requester.getAdmin().getEmail();
+        else
+            sendTo[1] = requester.getTeamLeader().getEmail();
+
+        sendCustomEmail(sendTo, message, application.toString());
     }
 
     public void sendVerificationEmail(String to, String token) {

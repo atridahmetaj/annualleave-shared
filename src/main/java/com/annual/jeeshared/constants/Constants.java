@@ -20,4 +20,6 @@ public final class Constants {
     public static final String EMAIL_SENT = "Email sent";
     public static final String NOT_ALLOWED = "Operation not allowed";
     public static final int PROBATION_PERIOD = 90;
+    public static final String APPLICATION_UPDATED = "Application updated";
+    public static final String APPLICATION_CREATED = "New application created";
 }
