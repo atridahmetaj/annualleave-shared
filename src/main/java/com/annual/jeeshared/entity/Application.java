@@ -4,6 +4,7 @@ import com.annual.jeeshared.enums.ApplicationStatus;
 import com.annual.jeeshared.enums.ApplicationType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.Date;
 @Table(name = "applications")
 @Getter
 @Setter
+@ToString
 public class Application extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,7 @@
 package com.annual.jeeshared.service;
 
+import com.annual.jeeshared.beans.ApplicationDTO;
+import com.annual.jeeshared.beans.ApplicationEmailDTO;
 import com.annual.jeeshared.constants.Constants;
 import com.annual.jeeshared.entity.Application;
 import com.annual.jeeshared.entity.User;
@@ -34,15 +36,12 @@ public class EmailService {
     public void sendApplicationMail(Application application, String message){
         // send email
         User requester = application.getRequestedBy();
-        User loggedInUser = UserUtils.getLoggedInUser();
-        String[] sendTo = new String[2];
-        sendTo[0] = requester.getEmail();
-        if (loggedInUser.equals(requester.getAdmin()))
-            sendTo[1] = requester.getAdmin().getEmail();
-        else
-            sendTo[1] = requester.getTeamLeader().getEmail();
-
-        sendCustomEmail(sendTo, message, application.toString());
+        ApplicationEmailDTO app = new ApplicationEmailDTO();
+        app.setFrom(application.getFrom());
+        app.setTo(application.getTo());
+        app.setUser(requester.getName());
+        app.setApplicationType(application.getApplicationType());
+        sendCustomEmail(new String[] { requester.getAdmin().getEmail() }, message, app.toString());
     }
 
     public void sendVerificationEmail(String to, String token) {
